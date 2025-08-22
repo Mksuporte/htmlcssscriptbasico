@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula de HTML - Estrutura Básica</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: #333;
+            min-height: 100vh;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .container {
+            max-width: 1000px;
+            width: 100%;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        
+        header {
+            background: #2575fc;
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 20px;
+        }
+        
+        .explanation {
+            flex: 1;
+            min-width: 300px;
+            padding: 20px;
+        }
+        
+        .explanation h2 {
+            color: #2575fc;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #6a11cb;
+            padding-bottom: 5px;
+        }
+        
+        .explanation p {
+            line-height: 1.6;
+            margin-bottom: 15px;
+        }
+        
+        .explanation ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .explanation li {
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+        
+        .code-preview {
+            flex: 1;
+            min-width: 300px;
+            background: #2d2d2d;
+            color: #f8f8f2;
+            border-radius: 10px;
+            padding: 20px;
+            overflow: auto;
+            margin: 10px;
+        }
+        
+        .code-preview h2 {
+            color: #ff79c6;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        pre {
+            white-space: pre-wrap;
+            line-height: 1.5;
+        }
+        
+        .tag {
+            color: #ff79c6;
+        }
+        
+        .attribute {
+            color: #50fa7b;
+        }
+        
+        .value {
+            color: #f1fa8c;
+        }
+        
+        .comment {
+            color: #6272a4;
+        }
+        
+        .interactive {
+            background: #f5f9ff;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        
+        .interactive h2 {
+            color: #2575fc;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+        
+        button {
+            background: #6a11cb;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        button:hover {
+            background: #2575fc;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: white;
+            font-weight: bold;
+        }
+        
+        @media (max-width: 768px) {
+            .content {
+                flex-direction: column;
+            }
+            
+            .code-preview {
+                margin: 10px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Aula de HTML - Estrutura Básica</h1>
+            <p class="subtitle">Entenda a função de cada elemento sem precisar decorar!</p>
+        </header>
+        
+        <div class="content">
+            <div class="explanation">
+                <h2>Por que não decorar?</h2>
+                <p>No HTML, o importante é entender a função de cada elemento, não decorar. Com o tempo e prática, você naturalmente memorizará as tags mais importantes.</p>
+                
+                <h2>Estrutura Básica do HTML</h2>
+                <p>Todo documento HTML possui uma estrutura básica composta por:</p>
+                <ul>
+                    <li><strong>&lt;!DOCTYPE html&gt;</strong> - Define que é um documento HTML5</li>
+                    <li><strong>&lt;html&gt;</strong> - Elemento raiz do documento</li>
+                    <li><strong>&lt;head&gt;</strong> - Contém metadados sobre a página</li>
+                    <li><strong>&lt;body&gt;</strong> - Contém o conteúdo visível da página</li>
+                </ul>
+                
+                <h2>Dica de Aprendizado</h2>
+                <p>Foque em entender a semântica (significado) de cada tag. Por exemplo:</p>
+                <ul>
+                    <li>Tags de cabeçalho: h1 a h6</li>
+                    <li>Tags de texto: p, span, strong, em</li>
+                    <li>Tags de mídia: img, audio, video</li>
+                    <li>Tags de estrutura: div, section, article, header, footer</li>
+                </ul>
+            </div>
+            
+            <div class="code-preview">
+                <h2>Exemplo de Código HTML</h2>
+                <pre><code><span class="tag">&lt;!DOCTYPE html&gt;</span>
+<span class="tag">&lt;html</span> <span class="attribute">lang=</span><span class="value">"pt-BR"</span><span class="tag">&gt;</span>
+<span class="tag">&lt;head&gt;</span>
+    <span class="comment">&lt;!-- Configurações e metadados --&gt;</span>
+    <span class="tag">&lt;meta</span> <span class="attribute">charset=</span><span class="value">"UTF-8"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;meta</span> <span class="attribute">name=</span><span class="value">"viewport"</span> <span class="attribute">content=</span><span class="value">"width=device-width, initial-scale=1.0"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;title&gt;</span>Minha Página<span class="tag">&lt;/title&gt;</span>
+<span class="tag">&lt;/head&gt;</span>
+<span class="tag">&lt;body&gt;</span>
+    <span class="comment">&lt;!-- Conteúdo visível --&gt;</span>
+    <span class="tag">&lt;header&gt;</span>
+        <span class="tag">&lt;h1&gt;</span>Bem-vindo à Minha Página<span class="tag">&lt;/h1&gt;</span>
+    <span class="tag">&lt;/header&gt;</span>
+    
+    <span class="tag">&lt;main&gt;</span>
+        <span class="tag">&lt;p&gt;</span>Este é um parágrafo de exemplo.<span class="tag">&lt;/p&gt;</span>
+        <span class="tag">&lt;img</span> <span class="attribute">src=</span><span class="value">"imagem.jpg"</span> <span class="attribute">alt=</span><span class="value">"Descrição"</span><span class="tag">&gt;</span>
+    <span class="tag">&lt;/main&gt;</span>
+    
+    <span class="tag">&lt;footer&gt;</span>
+        <span class="tag">&lt;p&gt;</span>Rodapé da página<span class="tag">&lt;/p&gt;</span>
+    <span class="tag">&lt;/footer&gt;</span>
+<span class="tag">&lt;/body&gt;</span>
+<span class="tag">&lt;/html&gt;</span></code></pre>
+            </div>
+        </div>
+        
+        <div class="interactive">
+            <h2>Prática Interativa</h2>
+            <div class="buttons">
+                <button onclick="showTip('head')">Função do &lt;head&gt;</button>
+                <button onclick="showTip('body')">Função do &lt;body&gt;</button>
+                <button onclick="showTip('title')">Função do &lt;title&gt;</button>
+                <button onclick="showTip('meta')">Função do &lt;meta&gt;</button>
+            </div>
+            <div id="tip-container" style="margin-top: 20px; padding: 15px; background: #e6f2ff; border-radius: 8px; display: none;">
+                <p id="tip-content"></p>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>Aula de HTML - Foque em entender, não em decorar!</p>
+    </footer>
+
+    <script>
+        function showTip(element) {
+            const tipContainer = document.getElementById('tip-container');
+            const tipContent = document.getElementById('tip-content');
+            
+            const tips = {
+                'head': 'A tag <head> contém metadados (dados sobre dados) e configurações da página. O que está aqui não é visível diretamente para o usuário, mas é fundamental para o navegador e mecanismos de busca.',
+                'body': 'A tag <body> contém todo o conteúdo visível da página. Tudo o que o usuário vê (textos, imagens, vídeos, etc.) está dentro desta tag.',
+                'title': 'A tag <title> define o título da página, que aparece na aba do navegador e nos resultados de busca. É muito importante para SEO.',
+                'meta': 'As tags <meta> fornecem metadados como codificação de caracteres, descrição para mecanismos de busca, viewport para responsividade, entre outros.'
+            };
+            
+            tipContent.innerHTML = tips[element];
+            tipContainer.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
