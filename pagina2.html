@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aula Interativa de CSS</title>
+    <style>
+        /* Estilos gerais */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #6e8efb, #a777e3);
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        
+        header {
+            background: linear-gradient(90deg, #3498db, #2c3e50);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+        }
+        
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        /* Navegação por abas */
+        .tabs {
+            display: flex;
+            background: #2c3e50;
+        }
+        
+        .tab-button {
+            padding: 15px 25px;
+            background: #34495e;
+            color: white;
+            border: none;
+            cursor: pointer;
+            flex: 1;
+            font-size: 1rem;
+            transition: background 0.3s;
+        }
+        
+        .tab-button:hover {
+            background: #3498db;
+        }
+        
+        .tab-button.active {
+            background: #3498db;
+            font-weight: bold;
+        }
+        
+        /* Conteúdo das abas */
+        .tab-content {
+            display: none;
+            padding: 30px;
+        }
+        
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        h2 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #3498db;
+            padding-bottom: 10px;
+        }
+        
+        h3 {
+            color: #3498db;
+            margin: 15px 0;
+        }
+        
+        p {
+            margin-bottom: 15px;
+        }
+        
+        /* Área de código */
+        .code-container {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'Courier New', monospace;
+            overflow-x: auto;
+            position: relative;
+        }
+        
+        .code-comment {
+            color: #75715e;
+        }
+        
+        .code-selector {
+            color: #a6e22e;
+        }
+        
+        .code-property {
+            color: #66d9ef;
+        }
+        
+        .code-value {
+            color: #ae81ff;
+        }
+        
+        /* Área de visualização */
+        .visualization {
+            border: 2px dashed #3498db;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* Elemento de exemplo */
+        .example-element {
+            width: 150px;
+            height: 150px;
+            background: #3498db;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+        
+        /* Controles interativos */
+        .controls {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        
+        .control-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #2c3e50;
+        }
+        
+        input[type="range"], select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        
+        .value-display {
+            display: inline-block;
+            min-width: 40px;
+            text-align: right;
+            font-weight: bold;
+            color: #3498db;
+        }
+        
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .tabs {
+                flex-direction: column;
+            }
+            
+            .code-container {
+                padding: 15px;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>CSS - Folhas de Estilo em Cascata</h1>
+            <p class="subtitle">Aprenda a estrutura básica do CSS de forma visual e interativa</p>
+        </header>
+        
+        <div class="tabs">
+            <button class="tab-button active" onclick="openTab('sintaxe')">Sintaxe Básica</button>
+            <button class="tab-button" onclick="openTab('seletores')">Seletores</button>
+            <button class="tab-button" onclick="openTab('box-model')">Box Model</button>
+            <button class="tab-button" onclick="openTab('cores')">Cores e Fundos</button>
+        </div>
+        
+        <div id="sintaxe" class="tab-content active">
+            <h2>Sintaxe Básica do CSS</h2>
+            <p>Uma regra CSS é composta por um seletor e um bloco de declaração:</p>
+            
+            <div class="code-container">
+                <span class="code-comment">/* Isso é um comentário CSS */</span><br>
+                <span class="code-selector">seletor</span> {<br>
+                &nbsp;&nbsp;<span class="code-property">propriedade</span>: <span class="code-value">valor</span>; <span class="code-comment">/* Declaração */</span><br>
+                }
+            </div>
+            
+            <div class="visualization">
+                <div class="example-element" id="element-sintaxe">Elemento de Exemplo</div>
+            </div>
+            
+            <div class="controls">
+                <div class="control-group">
+                    <label for="bg-color">Cor de Fundo: <span class="value-display" id="bg-color-value">#3498db</span></label>
+                    <input type="color" id="bg-color" value="#3498db" oninput="updateElement('bg-color', 'background-color', '#3498db')">
+                </div>
+                
+                <div class="control-group">
+                    <label for="width">Largura: <span class="value-display" id="width-value">150px</span></label>
+                    <input type="range" id="width" min="50" max="300" value="150" oninput="updateElement('width', 'width', '150', 'px')">
+                </div>
+                
+                <div class="control-group">
+                    <label for="border-radius">Border Radius: <span class="value-display" id="border-radius-value">0px</span></label>
+                    <input type="range" id="border-radius" min="0" max="75" value="0" oninput="updateElement('border-radius', 'border-radius', '0', 'px')">
+                </div>
+            </div>
+        </div>
+        
+        <div id="seletores" class="tab-content">
+            <h2>Seletores CSS</h2>
+            <p>Seletores são padrões usados para selecionar os elementos que você quer estilizar.</p>
+            
+            <div class="code-container">
+                <span class="code-comment">/* Seletor de elemento */</span><br>
+                <span class="code-selector">p</span> { <span class="code-property">color</span>: <span class="code-value">blue</span>; }<br><br>
+                
+                <span class="code-comment">/* Seletor de classe */</span><br>
+                <span class="code-selector">.minha-classe</span> { <span class="code-property">font-size</span>: <span class="code-value">18px</span>; }<br><br>
+                
+                <span class="code-comment">/* Seletor de ID */</span><br>
+                <span class="code-selector">#meu-id</span> { <span class="code-property">background</span>: <span class="code-value">#f0f0f0</span>; }<br><br>
+                
+                <span class="code-comment">/* Seletor universal */</span><br>
+                <span class="code-selector">*</span> { <span class="code-property">margin</span>: <span class="code-value">0</span>; }
+            </div>
+            
+            <div class="visualization">
+                <div class="example-element" style="width: auto; height: auto; padding: 15px;" id="element-seletores">
+                    <p>Este é um parágrafo comum.</p>
+                    <p class="destaque">Este parágrafo tem uma classe especial.</p>
+                    <p id="unico">Este parágrafo tem um ID único.</p>
+                </div>
+            </div>
+            
+            <div class="controls">
+                <div class="control-group">
+                    <label for="seletor-type">Tipo de Seletor:</label>
+                    <select id="seletor-type" onchange="applySelector()">
+                        <option value="elemento">Elemento (p)</option>
+                        <option value="classe">Classe (.destaque)</option>
+                        <option value="id">ID (#unico)</option>
+                    </select>
+                </div>
+                
+                <div class="control-group">
+                    <label for="color-seletor">Cor do Texto: <span class="value-display" id="color-seletor-value">#333333</span></label>
+                    <input type="color" id="color-seletor" value="#333333" oninput="updateSelectorElement('color-seletor', 'color', '#333333')">
+                </div>
+                
+                <div class="control-group">
+                    <label for="font-size">Tamanho da Fonte: <span class="value-display" id="font-size-value">16px</span></label>
+                    <input type="range" id="font-size" min="12" max="30" value="16" oninput="updateSelectorElement('font-size', 'font-size', '16', 'px')">
+                </div>
+            </div>
+        </div>
+        
+        <div id="box-model" class="tab-content">
+            <h2>Box Model</h2>
+            <p>O Box Model é um conceito fundamental do CSS que define como os elementos são renderizados.</p>
+            
+            <div class="code-container">
+                <span class="code-selector">.caixa</span> {<br>
+                &nbsp;&nbsp;<span class="code-property">width</span>: <span class="code-value">200px</span>;<br>
+                &nbsp;&nbsp;<span class="code-property">height</span>: <span class="code-value">100px</span>;<br>
+                &nbsp;&nbsp;<span class="code-property">padding</span>: <span class="code-value">20px</span>;<br>
+                &nbsp;&nbsp;<span class="code-property">border</span>: <span class="code-value">5px solid #3498db</span>;<br>
+                &nbsp;&nbsp;<span class="code-property">margin</span>: <span class="code-value">30px</span>;<br>
+                }
+            </div>
+            
+            <div class="visualization" style="position: relative;">
+                <div style="position: absolute; top: 10px; right: 10px; background: rgba(0,0,0,0.7); color: white; padding: 5px; border-radius: 3px; font-size: 12px;">
+                    Visualização do Box Model
+                </div>
+                <div class="box-model-visualization">
+                    <div class="margin" style="padding: 30px;" id="margin-box">
+                        Margin
+                        <div class="border" style="border: 5px solid #3498db; padding: 20px;" id="border-box">
+                            Border
+                            <div class="padding" style="background: rgba(52, 152, 219, 0.2);" id="padding-box">
+                                Padding
+                                <div class="content" style="width: 200px; height: 100px; background: #3498db; color: white; display: flex; align-items: center; justify-content: center;" id="content-box">
+                                    Content
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="controls">
+                <div class="control-group">
+                    <label for="box-padding">Padding: <span class="value-display" id="box-padding-value">20px</span></label>
+                    <input type="range" id="box-padding" min="0" max="50" value="20" oninput="updateBoxModel('box-padding', 'padding', '20', 'px')">
+                </div>
+                
+                <div class="control-group">
+                    <label for="box-border">Border: <span class="value-display" id="box-border-value">5px</span></label>
+                    <input type="range" id="box-border" min="0" max="20" value="5" oninput="updateBoxModel('box-border', 'border', '5', 'px')">
+                </div>
+                
+                <div class="control-group">
+                    <label for="box-margin">Margin: <span class="value-display" id="box-margin-value">30px</span></label>
+                    <input type="range" id="box-margin" min="0" max="50" value="30" oninput="updateBoxModel('box-margin', 'margin', '30', 'px')">
+                </div>
+            </div>
+        </div>
+        
+        <div id="cores" class="tab-content">
+            <h2>Cores e Fundos no CSS</h2>
+            <p>O CSS oferece várias formas de definir cores e fundos para elementos.</p>
+            
+            <div class="code-container">
+                <span class="code-comment">/* Diferentes formas de definir cores */</span><br>
+                <span class="code-selector">.elemento</span> {<br>
+                &nbsp;&nbsp;<span class="code-property">color</span>: <span class="code-value">red</span>; <span class="code-comment">/* Nome da cor */</span><br>
+                &nbsp;&nbsp;<span class="code-property">background-color</span>: <span class="code-value">#ff0000</span>; <span class="code-comment">/* Hexadecimal */</span><br>
+                &nbsp;&nbsp;<span class="code-property">border-color</span>: <span class="code-value">rgb(255, 0, 0)</span>; <span class="code-comment">/* RGB */</span><br>
+                &nbsp;&nbsp;<span class="code-property">outline-color</span>: <span class="code-value">rgba(255, 0, 0, 0.5)</span>; <span class="code-comment">/* RGBA com transparência */</span><br>
+                &nbsp;&nbsp;<span class="code-property">box-shadow</span>: <span class="code-value">0 0 10px hsl(0, 100%, 50%)</span>; <span class="code-comment">/* HSL */</span><br>
+                }
+            </div>
+            
+            <div class="visualization">
+                <div class="example-element" id="element-cores" style="width: 200px; height: 200px; border: 5px solid #3498db; box-shadow: 0 0 10px rgba(0,0,0,0.3);">
+                    Elemento com várias propriedades de cor
+                </div>
+            </div>
+            
+            <div class="controls">
+                <div class="control-group">
+                    <label for="bg-type">Tipo de Fundo:</label>
+                    <select id="bg-type" onchange="changeBackgroundType()">
+                        <option value="solid">Cor Sólida</option>
+                        <option value="gradient">Gradiente</option>
+                        <option value="image">Imagem</option>
+                    </select>
+                </div>
+                
+                <div class="control-group" id="solid-color-control">
+                    <label for="solid-color">Cor de Fundo: <span class="value-display" id="solid-color-value">#3498db</span></label>
+                    <input type="color" id="solid-color" value="#3498db" oninput="updateColorElement('solid-color', 'background-color', '#3498db')">
+                </div>
+                
+                <div class="control-group" id="gradient-control" style="display: none;">
+                    <label for="gradient-color1">Cor do Gradiente 1: <span class="value-display" id="gradient-color1-value">#3498db</span></label>
+                    <input type="color" id="gradient-color1" value="#3498db" oninput="updateGradient()">
+                    
+                    <label for="gradient-color2">Cor do Gradiente 2: <span class="value-display" id="gradient-color2-value">#2c3e50</span></label>
+                    <input type="color" id="gradient-color2" value="#2c3e50" oninput="updateGradient()">
+                </div>
+                
+                <div class="control-group">
+                    <label for="text-color">Cor do Texto: <span class="value-display" id="text-color-value">#ffffff</span></label>
+                    <input type="color" id="text-color" value="#ffffff" oninput="updateColorElement('text-color', 'color', '#ffffff')">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Função para alternar entre abas
+        function openTab(tabId) {
+            // Oculta todo o conteúdo das abas
+            const tabContents = document.getElementsByClassName('tab-content');
+            for (let i = 0; i < tabContents.length; i++) {
+                tabContents[i].classList.remove('active');
+            }
+            
+            // Remove a classe ativa de todos os botões
+            const tabButtons = document.getElementsByClassName('tab-button');
+            for (let i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].classList.remove('active');
+            }
+            
+            // Ativa a aba selecionada
+            document.getElementById(tabId).classList.add('active');
+            event.currentTarget.classList.add('active');
+        }
+        
+        // Função para atualizar elementos com base nos controles
+        function updateElement(inputId, property, defaultValue, unit = '') {
+            const input = document.getElementById(inputId);
+            const valueDisplay = document.getElementById(inputId + '-value');
+            const element = document.getElementById('element-' + inputId.split('-')[0]);
+            
+            let value = input.value;
+            valueDisplay.textContent = value + unit;
+            
+            if (property === 'background-color') {
+                element.style[property] = value;
+            } else {
+                element.style[property] = value + unit;
+            }
+        }
+        
+        // Função para atualizar elementos na aba de seletores
+        function updateSelectorElement(inputId, property, defaultValue, unit = '') {
+            const input = document.getElementById(inputId);
+            const valueDisplay = document.getElementById(inputId + '-value');
+            const selectorType = document.getElementById('seletor-type').value;
+            
+            let value = input.value;
+            valueDisplay.textContent = value + unit;
+            
+            let selector;
+            if (selectorType === 'elemento') {
+                selector = '#element-seletores p';
+            } else if (selectorType === 'classe') {
+                selector = '#element-seletores .destaque';
+            } else {
+                selector = '#element-seletores #unico';
+            }
+            
+            const elements = document.querySelectorAll(selector);
+            for (let i = 0; i < elements.length; i++) {
+                if (property === 'color') {
+                    elements[i].style[property] = value;
+                } else {
+                    elements[i].style[property] = value + unit;
+                }
+            }
+        }
+        
+        // Função para aplicar o seletor escolhido
+        function applySelector() {
+            // Reseta todos os estilos
+            const allElements = document.querySelectorAll('#element-seletores p');
+            for (let i = 0; i < allElements.length; i++) {
+                allElements[i].style.color = '';
+                allElements[i].style.fontSize = '';
+            }
+            
+            // Aplica os valores atuais ao seletor escolhido
+            updateSelectorElement('color-seletor', 'color', '#333333');
+            updateSelectorElement('font-size', 'font-size', '16', 'px');
+        }
+        
+        // Função para atualizar o Box Model
+        function updateBoxModel(inputId, property, defaultValue, unit = '') {
+            const input = document.getElementById(inputId);
+            const valueDisplay = document.getElementById(inputId + '-value');
+            let value = input.value;
+            valueDisplay.textContent = value + unit;
+            
+            let elementId;
+            if (property === 'padding') {
+                elementId = 'padding-box';
+                document.getElementById('border-box').style[property] = value + unit;
+            } else if (property === 'border') {
+                elementId = 'border-box';
+                document.getElementById('border-box').style.borderWidth = value + unit;
+            } else if (property === 'margin') {
+                elementId = 'margin-box';
+                document.getElementById('margin-box').style[property] = value + unit;
+            }
+            
+            // Atualiza os rótulos
+            document.querySelectorAll('.margin, .border, .padding, .content').forEach(el => {
+                el.textContent = el.classList[0].charAt(0).toUpperCase() + el.classList[0].slice(1);
+            });
+        }
+        
+        // Função para alterar o tipo de fundo
+        function changeBackgroundType() {
+            const bgType = document.getElementById('bg-type').value;
+            document.getElementById('solid-color-control').style.display = bgType === 'solid' ? 'block' : 'none';
+            document.getElementById('gradient-control').style.display = bgType === 'gradient' ? 'block' : 'none';
+            
+            const element = document.getElementById('element-cores');
+            
+            if (bgType === 'solid') {
+                const color = document.getElementById('solid-color').value;
+                element.style.background = color;
+            } else if (bgType === 'gradient') {
+                updateGradient();
+            } else {
+                element.style.background = "url('https://via.placeholder.com/200') center/cover no-repeat";
+            }
+        }
+        
+        // Função para atualizar o gradiente
+        function updateGradient() {
+            const color1 = document.getElementById('gradient-color1').value;
+            const color2 = document.getElementById('gradient-color2').value;
+            document.getElementById('gradient-color1-value').textContent = color1;
+            document.getElementById('gradient-color2-value').textContent = color2;
+            
+            const element = document.getElementById('element-cores');
+            element.style.background = `linear-gradient(135deg, ${color1}, ${color2})`;
+        }
+        
+        // Função para atualizar elementos de cor
+        function updateColorElement(inputId, property, defaultValue) {
+            const input = document.getElementById(inputId);
+            const valueDisplay = document.getElementById(inputId + '-value');
+            const element = document.getElementById('element-cores');
+            
+            let value = input.value;
+            valueDisplay.textContent = value;
+            
+            element.style[property] = value;
+        }
+        
+        // Inicializa a página
+        window.onload = function() {
+            // Inicializa os displays de valor
+            document.getElementById('width-value').textContent = document.getElementById('width').value + 'px';
+            document.getElementById('border-radius-value').textContent = document.getElementById('border-radius').value + 'px';
+            document.getElementById('font-size-value').textContent = document.getElementById('font-size').value + 'px';
+            document.getElementById('box-padding-value').textContent = document.getElementById('box-padding').value + 'px';
+            document.getElementById('box-border-value').textContent = document.getElementById('box-border').value + 'px';
+            document.getElementById('box-margin-value').textContent = document.getElementById('box-margin').value + 'px';
+        };
+    </script>
+</body>
+</html>
