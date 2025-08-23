@@ -3,14 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Estrutura Básica do JavaScript</title>
+    <title>JavaScript Interativo - Comandos Essenciais</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --primary: #3498db;
             --secondary: #2ecc71;
             --accent: #e74c3c;
+            --warning: #f39c12;
             --dark: #2c3e50;
             --light: #ecf0f1;
+            --code-bg: #282c34;
         }
         
         * {
@@ -23,130 +26,240 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             line-height: 1.6;
             color: var(--dark);
-            background-color: var(--light);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             padding: 20px;
-        }
-        
-        header {
-            text-align: center;
-            margin-bottom: 40px;
-            padding: 20px;
-            background-color: var(--primary);
-            color: white;
-            border-radius: 10px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        
-        h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
-        }
-        
-        h2 {
-            color: var(--primary);
-            margin: 20px 0 15px;
-            border-bottom: 2px solid var(--primary);
-            padding-bottom: 5px;
+            min-height: 100vh;
         }
         
         .container {
             max-width: 1200px;
             margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+        }
+        
+        header {
+            text-align: center;
+            padding: 30px;
+            background: var(--primary);
+            color: white;
+        }
+        
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+        
+        .tagline {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+        
+        h2 {
+            color: var(--primary);
+            margin: 25px 0 15px;
+            border-bottom: 2px solid var(--primary);
+            padding-bottom: 8px;
+        }
+        
+        h3 {
+            color: var(--secondary);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .content {
+            padding: 30px;
         }
         
         .concepts {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
             margin-bottom: 40px;
         }
         
         .concept-card {
             background: white;
-            border-radius: 10px;
-            padding: 20px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-left: 5px solid var(--primary);
         }
         
         .concept-card:hover {
             transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
         }
         
-        .concept-card h3 {
-            color: var(--secondary);
-            margin-bottom: 15px;
+        .concept-card.alert {
+            border-left-color: var(--warning);
+        }
+        
+        .concept-card.functions {
+            border-left-color: var(--secondary);
+        }
+        
+        .concept-card.dom {
+            border-left-color: var(--accent);
         }
         
         .code-block {
-            background-color: #282c34;
+            background-color: var(--code-bg);
             color: #abb2bf;
-            padding: 15px;
-            border-radius: 5px;
-            margin: 15px 0;
-            font-family: 'Courier New', monospace;
+            padding: 18px;
+            border-radius: 8px;
+            margin: 18px 0;
+            font-family: 'Fira Code', 'Courier New', monospace;
             overflow-x: auto;
+            line-height: 1.5;
+            font-size: 15px;
+            position: relative;
+        }
+        
+        .code-block::before {
+            content: "EXEMPLO DE CÓDIGO";
+            position: absolute;
+            top: 0;
+            right: 0;
+            background: var(--primary);
+            color: white;
+            font-size: 11px;
+            padding: 3px 8px;
+            border-bottom-left-radius: 5px;
+            font-family: 'Segoe UI', sans-serif;
+        }
+        
+        .code-comment {
+            color: #5c6370;
         }
         
         .interactive-demo {
-            background-color: white;
+            background-color: #f8f9fa;
             padding: 20px;
             border-radius: 10px;
             margin: 20px 0;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border: 1px solid #e9ecef;
         }
         
         .demo-controls {
             display: flex;
-            gap: 10px;
-            margin: 15px 0;
+            gap: 12px;
+            margin: 18px 0;
             flex-wrap: wrap;
         }
         
         button {
-            padding: 10px 15px;
+            padding: 12px 18px;
             background-color: var(--primary);
             color: white;
             border: none;
-            border-radius: 5px;
+            border-radius: 6px;
             cursor: pointer;
-            transition: background-color 0.3s;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 500;
         }
         
         button:hover {
             background-color: #2980b9;
+            transform: translateY(-2px);
+        }
+        
+        button.alert {
+            background-color: var(--warning);
+        }
+        
+        button.alert:hover {
+            background-color: #e67e22;
+        }
+        
+        button.confirm {
+            background-color: var(--secondary);
+        }
+        
+        button.confirm:hover {
+            background-color: #27ae60;
+        }
+        
+        button.prompt {
+            background-color: var(--accent);
+        }
+        
+        button.prompt:hover {
+            background-color: #c0392b;
         }
         
         input, select {
-            padding: 10px;
+            padding: 12px;
             border: 1px solid #ddd;
-            border-radius: 5px;
+            border-radius: 6px;
+            flex: 1;
+            min-width: 150px;
         }
         
         .output {
-            background-color: #f8f9fa;
-            padding: 15px;
-            border-radius: 5px;
-            margin-top: 15px;
-            min-height: 50px;
+            background-color: #edf2f7;
+            padding: 18px;
+            border-radius: 8px;
+            margin-top: 18px;
+            min-height: 70px;
             border-left: 4px solid var(--secondary);
+            font-family: 'Fira Code', monospace;
+            white-space: pre-wrap;
         }
         
         footer {
             text-align: center;
             margin-top: 40px;
-            padding: 20px;
-            color: #7f8c8d;
+            padding: 25px;
+            background: var(--dark);
+            color: #ecf0f1;
         }
         
         .highlight {
-            background-color: yellow;
+            background-color: rgba(255, 255, 0, 0.3);
             transition: background-color 0.5s;
+        }
+        
+        .console-tabs {
+            display: flex;
+            border-bottom: 1px solid #ccc;
+            margin-bottom: 15px;
+        }
+        
+        .console-tab {
+            padding: 10px 20px;
+            cursor: pointer;
+            background: #eee;
+            border-radius: 5px 5px 0 0;
+            margin-right: 5px;
+        }
+        
+        .console-tab.active {
+            background: var(--primary);
+            color: white;
         }
         
         @media (max-width: 768px) {
             .concepts {
                 grid-template-columns: 1fr;
+            }
+            
+            .demo-controls {
+                flex-direction: column;
+            }
+            
+            input, select {
+                width: 100%;
             }
         }
     </style>
@@ -154,232 +267,275 @@
 <body>
     <div class="container">
         <header>
-            <h1>Estrutura Básica do JavaScript</h1>
-            <p>Uma introdução visual e interativa aos conceitos fundamentais</p>
+            <h1><i class="fab fa-js-square"></i> JavaScript Interativo</h1>
+            <p class="tagline">Aprenda os comandos essenciais do JavaScript de forma visual e prática</p>
         </header>
         
-        <section class="concepts">
-            <div class="concept-card">
-                <h3>Variáveis</h3>
-                <p>As variáveis são containers para armazenar valores de dados.</p>
-                <div class="code-block">
-                    <pre><code>// Declaração de variáveis
-let nome = "João";
-const idade = 30;
-var cidade = "Lisboa";</code></pre>
-                </div>
-                <div class="interactive-demo">
-                    <p>Experimente alterar os valores:</p>
-                    <div class="demo-controls">
-                        <input type="text" id="varName" placeholder="Seu nome" value="João">
-                        <input type="number" id="varAge" placeholder="Sua idade" value="30">
-                        <button onclick="updateVars()">Atualizar Variáveis</button>
-                    </div>
-                    <div class="output" id="varOutput">
-                        Olá João, você tem 30 anos.
-                    </div>
-                </div>
-            </div>
-            
-            <div class="concept-card">
-                <h3>Funções</h3>
-                <p>Funções são blocos de código projetados para executar uma tarefa específica.</p>
-                <div class="code-block">
-                    <pre><code>// Declaração de função
-function saudacao(nome) {
-    return "Olá, " + nome + "!";
-}
+        <div class="content">
+            <section>
+                <h2>Comandos de Saída e Entrada</h2>
+                <div class="concepts">
+                    <div class="concept-card alert">
+                        <h3><i class="fas fa-exclamation-triangle"></i> Alertas</h3>
+                        <p>O <code>alert()</code> exibe uma mensagem modal de alerta ao usuário.</p>
+                        <div class="code-block">
+                            <pre><code><span class="code-comment">// Exibe uma caixa de alerta</span>
+alert("Isso é um alerta!");
 
-// Chamada da função
-let mensagem = saudacao("Maria");</code></pre>
-                </div>
-                <div class="interactive-demo">
-                    <p>Experimente chamar a função:</p>
-                    <div class="demo-controls">
-                        <input type="text" id="funcName" placeholder="Seu nome" value="Maria">
-                        <button onclick="callFunction()">Chamar Função</button>
+<span class="code-comment">// Alert com variável</span>
+let mensagem = "Olá, mundo!";
+alert(mensagem);</code></pre>
+                        </div>
+                        <div class="interactive-demo">
+                            <p>Experimente criar um alerta:</p>
+                            <div class="demo-controls">
+                                <input type="text" id="alertMessage" placeholder="Sua mensagem de alerta" value="Olá, isso é um alerta!">
+                                <button class="alert" onclick="showAlert()"><i class="fas fa-exclamation-triangle"></i> Mostrar Alert</button>
+                            </div>
+                        </div>
                     </div>
-                    <div class="output" id="funcOutput">
-                        // Resultado aparecerá aqui
-                    </div>
-                </div>
-            </div>
-            
-            <div class="concept-card">
-                <h3>Estruturas de Controle</h3>
-                <p>Permitem controlar o fluxo de execução do código com condições e loops.</p>
-                <div class="code-block">
-                    <pre><code>// Condicional if-else
-if (idade >= 18) {
-    console.log("Maior de idade");
+                    
+                    <div class="concept-card">
+                        <h3><i class="fas fa-question-circle"></i> Confirmações</h3>
+                        <p>O <code>confirm()</code> exibe uma caixa de diálogo modal com uma mensagem e dois botões (OK e Cancelar).</p>
+                        <div class="code-block">
+                            <pre><code><span class="code-comment">// Exibe uma caixa de confirmação</span>
+let resultado = confirm("Deseja realmente excluir?");
+
+<span class="code-comment">// Verifica a resposta do usuário</span>
+if (resultado) {
+    console.log("Usuário confirmou");
 } else {
-    console.log("Menor de idade");
-}
-
-// Loop for
-for (let i = 0; i < 5; i++) {
-    console.log("Número: " + i);
+    console.log("Usuário cancelou");
 }</code></pre>
-                </div>
-                <div class="interactive-demo">
-                    <p>Verifique se é maior de idade:</p>
-                    <div class="demo-controls">
-                        <input type="number" id="controlAge" placeholder="Sua idade" value="16">
-                        <button onclick="checkAge()">Verificar Idade</button>
+                        </div>
+                        <div class="interactive-demo">
+                            <p>Teste uma confirmação:</p>
+                            <div class="demo-controls">
+                                <input type="text" id="confirmMessage" placeholder="Sua mensagem de confirmação" value="Deseja continuar?">
+                                <button class="confirm" onclick="showConfirm()"><i class="fas fa-question-circle"></i> Mostrar Confirm</button>
+                            </div>
+                            <div class="output" id="confirmOutput">
+                                // O resultado aparecerá aqui
+                            </div>
+                        </div>
                     </div>
-                    <div class="output" id="controlOutput">
-                        // Resultado aparecerá aqui
-                    </div>
-                </div>
-            </div>
-        </section>
-        
-        <section>
-            <h2>Manipulação do DOM</h2>
-            <div class="concept-card">
-                <p>O DOM (Document Object Model) permite que o JavaScript altere a estrutura e o conteúdo de uma página web.</p>
-                <div class="code-block">
-                    <pre><code>// Alterar conteúdo HTML
-document.getElementById("demo").innerHTML = "Novo conteúdo!";
+                    
+                    <div class="concept-card">
+                        <h3><i class="fas fa-edit"></i> Prompt</h3>
+                        <p>O <code>prompt()</code> exibe uma caixa de diálogo que solicita uma entrada do usuário.</p>
+                        <div class="code-block">
+                            <pre><code><span class="code-comment">// Exibe um prompt para entrada de dados</span>
+let nome = prompt("Qual é o seu nome?", "Digite aqui");
 
-// Alterar estilo
-document.getElementById("demo").style.color = "red";
+<span class="code-comment">// Exibe o resultado</span>
+if (nome !== null) {
+    alert("Olá, " + nome + "!");
+}</code></pre>
+                        </div>
+                        <div class="interactive-demo">
+                            <p>Teste um prompt:</p>
+                            <div class="demo-controls">
+                                <input type="text" id="promptMessage" placeholder="Sua pergunta" value="Qual é o seu nome?">
+                                <input type="text" id="promptDefault" placeholder="Valor padrão" value="Visitante">
+                                <button class="prompt" onclick="showPrompt()"><i class="fas fa-edit"></i> Mostrar Prompt</button>
+                            </div>
+                            <div class="output" id="promptOutput">
+                                // O resultado aparecerá aqui
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section>
+                <h2>Console e Debugging</h2>
+                <div class="concepts">
+                    <div class="concept-card">
+                        <h3><i class="fas fa-terminal"></i> Console</h3>
+                        <p>O console é uma ferramenta essencial para debugging e log de informações.</p>
+                        <div class="code-block">
+                            <pre><code><span class="code-comment">// Diferentes métodos do console</span>
+console.log("Mensagem simples");
+console.info("Mensagem informativa");
+console.warn("Mensagem de aviso");
+console.error("Mensagem de erro");
 
-// Responder a eventos
-document.getElementById("btn").addEventListener("click", minhaFuncao);</code></pre>
-                </div>
-                <div class="interactive-demo">
-                    <p>Experimente manipular este elemento:</p>
-                    <div class="demo-controls">
-                        <input type="text" id="domText" placeholder="Novo texto" value="Texto alterado!">
-                        <input type="color" id="domColor" value="#3498db">
-                        <button onclick="changeDom()">Aplicar Mudanças</button>
+<span class="code-comment">// Exibindo variáveis</span>
+let x = 10, y = 20;
+console.log("Valor de x:", x);</code></pre>
+                        </div>
+                        <div class="interactive-demo">
+                            <p>Teste os comandos do console (abra o console do navegador para ver os resultados):</p>
+                            <div class="demo-controls">
+                                <input type="text" id="consoleMessage" placeholder="Sua mensagem" value="Testando o console!">
+                                <button onclick="testConsoleLog()"><i class="fas fa-bug"></i> console.log()</button>
+                                <button onclick="testConsoleWarn()"><i class="fas fa-exclamation-triangle"></i> console.warn()</button>
+                                <button onclick="testConsoleError()"><i class="fas fa-times-circle"></i> console.error()</button>
+                            </div>
+                        </div>
                     </div>
-                    <div class="output" id="domOutput">
-                        Este é um elemento que pode ser alterado.
+                    
+                    <div class="concept-card">
+                        <h3><i class="fas fa-table"></i> Console Table</h3>
+                        <p>O <code>console.table()</code> exibe dados tabulares como uma tabela.</p>
+                        <div class="code-block">
+                            <pre><code><span class="code-comment">// Array de objetos</span>
+let pessoas = [
+    { nome: "João", idade: 30 },
+    { nome: "Maria", idade: 25 },
+    { nome: "Pedro", idade: 35 }
+];
+
+<span class="code-comment">// Exibindo como tabela</span>
+console.table(pessoas);</code></pre>
+                        </div>
+                        <div class="interactive-demo">
+                            <p>Teste o console.table() (abra o console do navegador):</p>
+                            <div class="demo-controls">
+                                <button onclick="testConsoleTable()"><i class="fas fa-table"></i> console.table()</button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </section>
-        
-        <section>
-            <h2>Arrays e Objetos</h2>
-            <div class="concepts">
-                <div class="concept-card">
-                    <h3>Arrays</h3>
-                    <p>Arrays são usados para armazenar múltiplos valores em uma única variável.</p>
+            </section>
+            
+            <section>
+                <h2>Manipulação do DOM</h2>
+                <div class="concept-card dom">
+                    <h3><i class="fas fa-code"></i> Seleção e Manipulação de Elementos</h3>
+                    <p>O JavaScript permite selecionar e modificar elementos HTML.</p>
                     <div class="code-block">
-                        <pre><code>// Criando um array
-let frutas = ["Maçã", "Banana", "Laranja"];
+                        <pre><code><span class="code-comment">// Selecionando elementos</span>
+let elemento = document.getElementById("meuId");
+let elementos = document.querySelectorAll(".minhaClasse");
 
-// Acessando elementos
-console.log(frutas[0]); // "Maçã"
+<span class="code-comment">// Alterando conteúdo</span>
+elemento.innerHTML = "Novo conteúdo";
+elemento.style.color = "red";
 
-// Métodos de array
-frutas.push("Uva"); // Adiciona no final
-frutas.pop(); // Remove do final</code></pre>
+<span class="code-comment">// Manipulando classes</span>
+elemento.classList.add("destaque");
+elemento.classList.remove("antigo");</code></pre>
                     </div>
                     <div class="interactive-demo">
-                        <p>Manipule o array de frutas:</p>
+                        <p>Experimente manipular este elemento:</p>
                         <div class="demo-controls">
-                            <input type="text" id="arrayItem" placeholder="Nova fruta" value="Manga">
-                            <button onclick="addToArray()">Adicionar</button>
-                            <button onclick="removeFromArray()">Remover última</button>
+                            <input type="text" id="domText" placeholder="Novo texto" value="Texto alterado com JavaScript!">
+                            <input type="color" id="domColor" value="#3498db">
+                            <button onclick="changeDom()"><i class="fas fa-magic"></i> Aplicar Mudanças</button>
+                            <button onclick="resetDom()"><i class="fas fa-undo"></i> Resetar</button>
                         </div>
-                        <div class="output" id="arrayOutput">
-                            Array atual: ["Maçã", "Banana", "Laranja"]
+                        <div class="output" id="domOutput">
+                            Este é um elemento que pode ser alterado via JavaScript.
                         </div>
                     </div>
                 </div>
-                
-                <div class="concept-card">
-                    <h3>Objetos</h3>
-                    <p>Objetos armazenam coleções de pares chave-valor.</p>
-                    <div class="code-block">
-                        <pre><code>// Criando um objeto
-let pessoa = {
-    nome: "Carlos",
-    idade: 25,
-    cidade: "Porto"
-};
+            </section>
+            
+            <section>
+                <h2>Timing Events</h2>
+                <div class="concepts">
+                    <div class="concept-card">
+                        <h3><i class="fas fa-clock"></i> setTimeout e setInterval</h3>
+                        <p>JavaScript permite executar código após um delay ou em intervalos regulares.</p>
+                        <div class="code-block">
+                            <pre><code><span class="code-comment">// Executa após um delay</span>
+setTimeout(function() {
+    console.log("Isso executa após 2 segundos");
+}, 2000);
 
-// Acessando propriedades
-console.log(pessoa.nome); // "Carlos"
+<span class="code-comment">// Executa repetidamente a cada intervalo</span>
+let intervalo = setInterval(function() {
+    console.log("Executando a cada 1 segundo");
+}, 1000);
 
-// Alterando propriedades
-pessoa.idade = 26;</code></pre>
-                    </div>
-                    <div class="interactive-demo">
-                        <p>Visualize e altere o objeto:</p>
-                        <div class="demo-controls">
-                            <button onclick="showObject()">Mostrar Objeto</button>
-                            <button onclick="updateObject()">Aumentar Idade</button>
+<span class="code-comment">// Parar a execução do intervalo</span>
+clearInterval(intervalo);</code></pre>
                         </div>
-                        <div class="output" id="objectOutput">
-                            // Objeto aparecerá aqui
+                        <div class="interactive-demo">
+                            <p>Teste timing events:</p>
+                            <div class="demo-controls">
+                                <button onclick="testSetTimeout()"><i class="fas fa-hourglass-half"></i> Testar setTimeout</button>
+                                <button onclick="testSetInterval()"><i class="fas fa-sync-alt"></i> Testar setInterval</button>
+                                <button onclick="stopInterval()"><i class="fas fa-stop-circle"></i> Parar Intervalo</button>
+                            </div>
+                            <div class="output" id="timingOutput">
+                                // Resultados aparecerão aqui
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        </div>
         
         <footer>
-            <p>Página criada para fins educativos | JavaScript Básico</p>
+            <p>Página criada para fins educativos | JavaScript Essencial</p>
+            <p>Abra o console do navegador (F12) para ver mensagens adicionais</p>
         </footer>
     </div>
 
     <script>
-        // Dados iniciais
-        let nome = "João";
-        let idade = 30;
-        let frutas = ["Maçã", "Banana", "Laranja"];
-        let pessoa = {
-            nome: "Carlos",
-            idade: 25,
-            cidade: "Porto"
-        };
+        // Variáveis globais
+        let intervalId = null;
         
-        // Funções para as demonstrações interativas
+        // Funções para Alert, Confirm e Prompt
+        function showAlert() {
+            const message = document.getElementById('alertMessage').value || 'Alerta!';
+            alert(message);
+        }
         
-        // Variáveis
-        function updateVars() {
-            nome = document.getElementById("varName").value || "João";
-            idade = document.getElementById("varAge").value || 30;
+        function showConfirm() {
+            const message = document.getElementById('confirmMessage').value || 'Deseja continuar?';
+            const result = confirm(message);
+            document.getElementById('confirmOutput').innerHTML = 
+                `Usuário escolheu: ${result ? 'OK' : 'Cancelar'}`;
+        }
+        
+        function showPrompt() {
+            const message = document.getElementById('promptMessage').value || 'Qual é o seu nome?';
+            const defaultValue = document.getElementById('promptDefault').value || 'Visitante';
+            const result = prompt(message, defaultValue);
             
-            document.getElementById("varOutput").innerHTML = 
-                `Olá ${nome}, você tem ${idade} anos.`;
-        }
-        
-        // Funções
-        function saudacao(nome) {
-            return `Olá, ${nome}! Seja bem-vindo(a)!`;
-        }
-        
-        function callFunction() {
-            let nome = document.getElementById("funcName").value || "Maria";
-            let resultado = saudacao(nome);
-            document.getElementById("funcOutput").innerHTML = resultado;
-        }
-        
-        // Estruturas de controle
-        function checkAge() {
-            let idade = document.getElementById("controlAge").value || 0;
-            let resultado = "";
-            
-            if (idade >= 18) {
-                resultado = `Com ${idade} anos, você é maior de idade.`;
+            if (result !== null) {
+                document.getElementById('promptOutput').innerHTML = 
+                    `Usuário informou: ${result}`;
             } else {
-                resultado = `Com ${idade} anos, você é menor de idade.`;
+                document.getElementById('promptOutput').innerHTML = 
+                    `Usuário cancelou a operação`;
             }
-            
-            document.getElementById("controlOutput").innerHTML = resultado;
         }
         
-        // Manipulação do DOM
+        // Funções para Console
+        function testConsoleLog() {
+            const message = document.getElementById('consoleMessage').value || 'Testando o console!';
+            console.log('Mensagem log:', message);
+        }
+        
+        function testConsoleWarn() {
+            const message = document.getElementById('consoleMessage').value || 'Testando o console!';
+            console.warn('Mensagem de aviso:', message);
+        }
+        
+        function testConsoleError() {
+            const message = document.getElementById('consoleMessage').value || 'Testando o console!';
+            console.error('Mensagem de erro:', message);
+        }
+        
+        function testConsoleTable() {
+            const pessoas = [
+                { nome: "João", idade: 30, cidade: "São Paulo" },
+                { nome: "Maria", idade: 25, cidade: "Rio de Janeiro" },
+                { nome: "Pedro", idade: 35, cidade: "Belo Horizonte" }
+            ];
+            console.table(pessoas);
+        }
+        
+        // Funções para manipulação do DOM
         function changeDom() {
-            let novoTexto = document.getElementById("domText").value;
-            let novaCor = document.getElementById("domColor").value;
-            let elemento = document.getElementById("domOutput");
+            const novoTexto = document.getElementById('domText').value;
+            const novaCor = document.getElementById('domColor').value;
+            const elemento = document.getElementById('domOutput');
             
             elemento.innerHTML = novoTexto;
             elemento.style.color = novaCor;
@@ -391,40 +547,54 @@ pessoa.idade = 26;</code></pre>
             }, 1000);
         }
         
-        // Arrays
-        function addToArray() {
-            let novaFruta = document.getElementById("arrayItem").value || "Fruta";
-            frutas.push(novaFruta);
-            updateArrayOutput();
-        }
-        
-        function removeFromArray() {
-            frutas.pop();
-            updateArrayOutput();
-        }
-        
-        function updateArrayOutput() {
-            document.getElementById("arrayOutput").innerHTML = 
-                `Array atual: [${frutas.map(f => `"${f}"`).join(", ")}]`;
-        }
-        
-        // Objetos
-        function showObject() {
-            document.getElementById("objectOutput").innerHTML = 
-                `Nome: ${pessoa.nome}, Idade: ${pessoa.idade}, Cidade: ${pessoa.cidade}`;
-        }
-        
-        function updateObject() {
-            pessoa.idade++;
-            showObject();
+        function resetDom() {
+            const elemento = document.getElementById('domOutput');
+            elemento.innerHTML = 'Este é um elemento que pode ser alterado via JavaScript.';
+            elemento.style.color = '';
+            elemento.classList.remove("highlight");
             
-            // Destacar visualmente a mudança
-            let output = document.getElementById("objectOutput");
-            output.classList.add("highlight");
+            document.getElementById('domText').value = 'Texto alterado com JavaScript!';
+            document.getElementById('domColor').value = '#3498db';
+        }
+        
+        // Funções para Timing Events
+        function testSetTimeout() {
+            document.getElementById('timingOutput').innerHTML = 'Esperando 2 segundos...';
+            
             setTimeout(() => {
-                output.classList.remove("highlight");
+                document.getElementById('timingOutput').innerHTML = 
+                    'setTimeout executado após 2 segundos!';
+            }, 2000);
+        }
+        
+        function testSetInterval() {
+            let counter = 0;
+            document.getElementById('timingOutput').innerHTML = 'Contador: 0';
+            
+            // Limpar qualquer intervalo anterior
+            if (intervalId) {
+                clearInterval(intervalId);
+            }
+            
+            intervalId = setInterval(() => {
+                counter++;
+                document.getElementById('timingOutput').innerHTML = 
+                    `Contador: ${counter} (executando a cada 1 segundo)`;
             }, 1000);
         }
+        
+        function stopInterval() {
+            if (intervalId) {
+                clearInterval(intervalId);
+                document.getElementById('timingOutput').innerHTML += 
+                    '\nIntervalo parado!';
+                intervalId = null;
+            }
+        }
+        
+        // Inicialização
+        console.log('Página carregada! Experimente os exemplos interativos.');
+        console.info('Dica: Use F12 para abrir as ferramentas do desenvolvedor e ver mais detalhes.');
     </script>
 </body>
 </html>
