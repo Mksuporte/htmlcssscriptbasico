@@ -647,6 +647,10 @@
                             <h3><i class="fas fa-times-circle"></i> Incorreto!</h3>
                             <p>Tente novamente. Lembre-se que HTML é uma linguagem de marcação.</p>
                         </div>
+                        
+                        <div class="buttons">
+                            <button onclick="resetQuiz()"><i class="fas fa-redo"></i> Reiniciar Quiz</button>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -777,6 +781,7 @@
                         
                         <div class="buttons">
                             <button onclick="checkAnswer()"><i class="fas fa-check"></i> Verificar</button>
+                            <button onclick="resetInputs()"><i class="fas fa-redo"></i> Limpar</button>
                         </div>
                         
                         <div class="quiz-feedback correct">
@@ -800,7 +805,7 @@
                     
                     <h2><i class="fas fa-lightbulb"></i> Dicas para praticar:</h2>
                     <ul>
-                        <li><i class="fas fa-check"></i> Crie uma página com cabeçalho, conteúdo principal e rodapé</li>
+                        <li><i class="fas fa-check"></i> Crie uma página com cabeçalho, conteúdo principal và rodapé</li>
                         <li><i class="fas fa-check"></i> Experimente diferentes elementos HTML</li>
                         <li><i class="fas fa-check"></i> Adicione imagens e links</li>
                         <li><i class="fas fa-check"></i> Crie uma lista não ordenada com itens</li>
@@ -892,7 +897,7 @@
             }
         }
         
-        // Quiz interativo
+        // Quiz interativo - CORRIGIDO
         document.querySelectorAll('.quiz-option').forEach(option => {
             option.addEventListener('click', () => {
                 // Remove seleção anterior e classes de correção
@@ -919,11 +924,25 @@
                     option.classList.add('incorrect');
                     document.querySelector('.quiz-feedback.incorrect').classList.add('incorrect');
                     
-                    // Mostra a resposta correta
-                    document.querySelector('.quiz-option[data-correct="true"]').classList.add('correct');
+                    // Mostra a resposta correta apenas após errar
+                    const correctOption = document.querySelector('.quiz-option[data-correct="true"]');
+                    correctOption.classList.add('correct');
                 }
             });
         });
+        
+        // Função para reiniciar o quiz
+        function resetQuiz() {
+            // Remove todas as classes de seleção e correção
+            document.querySelectorAll('.quiz-option').forEach(option => {
+                option.classList.remove('selected', 'correct', 'incorrect');
+            });
+            
+            // Remove o feedback
+            document.querySelectorAll('.quiz-feedback').forEach(feedback => {
+                feedback.classList.remove('correct', 'incorrect');
+            });
+        }
         
         // Complete o código
         function checkAnswer() {
@@ -939,6 +958,13 @@
             } else {
                 document.querySelector('.quiz-feedback.incorrect').classList.add('incorrect');
             }
+        }
+        
+        // Limpar inputs
+        function resetInputs() {
+            document.getElementById('attr-input').value = '';
+            document.getElementById('value-input').value = '';
+            document.querySelectorAll('.quiz-feedback').forEach(f => f.classList.remove('correct', 'incorrect'));
         }
         
         // Playground de código
